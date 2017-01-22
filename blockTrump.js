@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Trump Killer
 // @namespace    http://localhost
-// @version      0.3.1
+// @version      0.3
 // @description  try to block the trump!
 // @author       Bret Wagner
 // @match        https://*.facebook.com/*
@@ -11,7 +11,7 @@
 (function() {
     'use strict';
     var baseState = history.state;
-    document.addEventListener("scroll", scrollFunction, {passive:true});
+    document.addEventListener("wheel", wheelFunction);
     blockTrump();
 })();
 
@@ -38,6 +38,6 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-function scrollFunction() {
+function wheelFunction() {
     blockTrump();
 }
