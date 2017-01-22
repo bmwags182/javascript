@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Trump Killer
 // @namespace    http://localhost
-// @version      0.3
+// @version      0.3.2
 // @description  try to block the trump!
 // @author       Bret Wagner
 // @match        https://*.facebook.com/*
@@ -11,7 +11,7 @@
 (function() {
     'use strict';
     var baseState = history.state;
-    document.addEventListener("wheel", wheelFunction);
+    document.addEventListener("scroll", scrollFunction, {passive:true});
     blockTrump();
 })();
 
@@ -19,7 +19,7 @@ function blockTrump() {
 	var baseState = history.state;
     var posts = document.getElementsByClassName("userContentWrapper _5pcr");
     for(var i=0; i<posts.length; i++) {
-        if (posts[i].innerHTML.toLowerCase().includes("trump")) {
+        if (posts[i].innerHTML.toLowerCase().includes("trump") || posts[i].innerHTML.toLowerCase().includes("donald trump")) {
             posts[i].style.display = "none";
             console.log("hidden");
         }
@@ -38,6 +38,6 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-function wheelFunction() {
+function scrollFunction() {
     blockTrump();
 }
