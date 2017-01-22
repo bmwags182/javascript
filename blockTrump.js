@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         Trump Killer
 // @namespace    http://localhost
-// @version      0.1.1
-// @description  try to block trump!
+// @version      0.3
+// @description  try to block the trump!
 // @author       Bret Wagner
 // @match        https://*.facebook.com/*
 // @grant        none
@@ -11,6 +11,7 @@
 (function() {
     'use strict';
     var baseState = history.state;
+    document.addEventListener("wheel", wheelFunction);
     blockTrump();
 })();
 
@@ -23,24 +24,20 @@ function blockTrump() {
             console.log("hidden");
         }
     }
-    sleep(30000);
-    stateChanged(baseState, getCurrentState());
+    removeAds();
 }
 
-function getCurrentState() {
-    var stateNow = history.state;
-    return stateNow;
+function removeAds() {
+    var ads = document.getElementsByClassName("ego_section");
+    for (var i=0; i<ads.length(); i++) {
+        ads[i].style.display = "none";
+    }
 }
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-function stateChanged(baseState, stateNow) {
-    if (baseState != stateNow) {
-        baseState = stateNow;
-        blockTrump();
-    } else {
-        sleep(30000);
-    }
+function wheelFunction() {
+    blockTrump();
 }
