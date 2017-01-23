@@ -5,7 +5,8 @@
 // @description  try to block the trump!
 // @author       Bret Wagner
 // @match        https://*.facebook.com/*
-// @grant        none
+// @grant        GM_xmlhttpRequest
+// @grant
 // ==/UserScript==
 
 (function() {
@@ -19,9 +20,9 @@ function blockTrump() {
 	var baseState = history.state;
     var posts = document.getElementsByClassName("userContentWrapper _5pcr");
     for(var i=0; i<posts.length; i++) {
-        if (posts[i].innerHTML.toLowerCase().includes("trump") || posts[i].innerHTML.toLowerCase().includes("donald trump")) {
+        if (posts[i].innerHTML.toLowerCase().includes("trump") {
             posts[i].style.display = "none";
-            console.log("hidden");
+            // console.log("hidden");
         }
     }
     removeAds();
