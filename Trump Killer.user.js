@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Trump Killer
 // @namespace    http://localhost
-// @version      0.3.2
+// @version      0.3.3
 // @description  try to block the trump!
 // @author       Bret Wagner
 // @match        https://*.facebook.com/*
@@ -21,8 +21,10 @@ function blockTrump() {
     var posts = document.getElementsByClassName("userContentWrapper _5pcr");
     for(var i=0; i<posts.length; i++) {
         if (posts[i].innerHTML.toLowerCase().includes("trump") {
-            posts[i].style.display = "none";
+            hidePost(posts[i]);
             // console.log("hidden");
+        } else if (posts[i].innerHTML.toLowerCase().includes("donald") && posts[i].innerHTML.toLowerCase().includes("president")) {
+            hidePost(posts[i]);
         }
     }
     removeAds();
@@ -41,4 +43,9 @@ function sleep(ms) {
 
 function scrollFunction() {
     blockTrump();
+}
+
+
+function hidePost(post) {
+    post.style.display = "none";
 }
