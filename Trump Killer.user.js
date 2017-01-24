@@ -6,9 +6,12 @@
 // @author          Bret Wagner
 // @match           https://*.facebook.com/*
 // @require         http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js
+// @require         ./variables.user.js
 // @grant           GM_xmlhttpRequest
 // @grant
 // ==/UserScript==
+var flickrKey = API_KEY; // Enter your flickr API key here
+var flickrSecret = API_SECRET; // Enter your flicker Secret code here
 
 (function() {
     'use strict';
@@ -70,16 +73,17 @@ function hidePost(post) {
     as well as adjust the post meta to say things like "John Smith posted
     something vile, we thought you would enjoy this instead" */
     post.style.display = "none";
-    // getKittens(); hidden until we can get the page from flickr working
+    getKittens(); // hidden until we can get the page from flickr working
 }
 
 function getKittens() {
-    kittensRequest = {url:"https://www.flickr.com/seach/", onerror:"errors", onload:function(res) { console.log(res.responseText); /* getCats(res.responseText); */ }, headers:{text:"kittens"}};
+    var flickrData = {api_key:flickrKey, text:"kittens, cat, kitten, cats", method: "flickr.photos.search"};
+    kittensRequest = {method:"POST", url:"https://api.flickr.com/services/rest/", data: flickrData, onerror:"errors", onload:function(res) { console.log(res.responseText); /* getCats(res.responseText); */ }, headers:{text:"kittens"}};
     /*
         The request is not being called at this time because I have hit a snag
         where I need to get an API key in order to request things from flickr
-
      */
+
     GM_xmlhttpRequest(kittensRequest);
 }
 
